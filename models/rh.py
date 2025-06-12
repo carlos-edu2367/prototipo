@@ -106,3 +106,8 @@ def criar_tabelas_rh():
             
         )
     """)
+
+    
+    conn.commit()
+    conn.close()
+    cursor.close()

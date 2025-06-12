@@ -82,3 +82,9 @@ def criar_tabelas_organizacional():
             nivel_de_acesso TEXT NOT NULL DEFAULT 'comum'
         )
     """)
+
+
+    
+    conn.commit()
+    conn.close()
+    cursor.close()
