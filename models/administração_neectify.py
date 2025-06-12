@@ -1,4 +1,5 @@
 from private.credenciais import conectar_banco
+from utils.data_e_hora import data_atual
 
 def criar_tabelas_adm():
     conn = conectar_banco()
@@ -22,3 +23,59 @@ def criar_tabelas_adm():
     conn.commit()
     conn.close()
     cursor.close()
+
+
+def verificar_plano_ativo(empresa_id:int):
+    """
+        Função que verifica se o plano da empresa referente ao colaborador ainda está ativo, se retornar verdadeiro está.
+
+
+        ARGS: int empresa_id
+
+        RETURNS: Boolean 
+
+    """
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        SELECT expiração_plano FROM empresas WHERE id = ?
+    """, (empresa_id,))
+
+    dados = cursor.fetchone()
+    data_exp = dados
+
+    data_atual = data_atual()
+    if data_atual >= data_exp:
+        return True
+    elif data_atual < data_exp:
+        return False
+    else:
+        print(f"ERRO ao realizar verificação de plano. {data_atual}")
+        return False
+
+
+def verificar_plano_contratado(empresa_id:int):
+    """
+        Função que retorna o id do plano contratado com base no id da empresa.
+
+        ARGS: int empresa_id
+
+        RETURNS: int id_plano
+
+                   Erros
+                ERRO ao realizar verificação de plano: cursor.fetchone não encontrou o plano desta empresa
+    """
+
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        SELECT plano_contratado FROM empresas WHERE id = ?
+    """, (empresa_id, ))
+    plano = cursor.fetchone()
+
+    if plano:
+        return plano
+    else:
+        print("ERRO ao realizar verificação de plano")
