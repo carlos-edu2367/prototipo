@@ -64,7 +64,7 @@ def verificar_plano_contratado(empresa_id:int):
         RETURNS: int id_plano
 
                    Erros
-                ERRO ao realizar verificação de plano: cursor.fetchone não encontrou o plano desta empresa
+                ERRO ao realizar verificação de plano: cursor.fetchone não conseguiu pegar o plano desta empresa
     """
 
     conexao = conectar_banco()
