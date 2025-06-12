@@ -12,7 +12,7 @@ def criar_tabelas_rh():
         CREATE TABLE IF NOT EXISTS empresas(
             id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
             nome_empresa TEXT NOT NULL,
-            cnpj_cpf TEXT NOT NULL,
+            cnpj_cpf UNIQUE TEXT NOT NULL,
             plano_contratado INTEGER NOT NULL DEFAULT 0,
             contrato_plano DATE NOT NULL,
             expiração_plano DATE NOT NULL,
@@ -33,8 +33,10 @@ def criar_tabelas_rh():
             cep TEXT NOT NULL,
             tel1 TEXT NOT NULL,
             tel2 TEXT,
+            email TEXT,
             empresa_nome TEXT NOT NULL,
-            cpf TEXT NOT NULL,
+            cpf UNIQUE TEXT NOT NULL,
+            senha TEXT NOT NULL,
             data_nascimento DATE NOT NULL,
             cargo INTEGER NOT NULL DEFAULT 0,
             salário DECIMAL NOT NULL,
@@ -107,7 +109,7 @@ def criar_tabelas_rh():
         )
     """)
 
-    
+
     conn.commit()
     conn.close()
     cursor.close()
