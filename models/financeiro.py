@@ -1,8 +1,8 @@
 from private.credenciais import conectar_banco
 
 def criar_tabelas_financeiro():
-    conexao = conectar_banco()
-    cursor = conexao.cursor()
+    conn = conectar_banco()
+    cursor = conn.cursor()
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS contratos(
@@ -79,3 +79,8 @@ def criar_tabelas_financeiro():
             nota_fiscal_ref TEXT
         )
     """)
+
+    
+    conn.commit()
+    conn.close()
+    cursor.close()
