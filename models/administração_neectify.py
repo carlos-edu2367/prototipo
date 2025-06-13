@@ -17,7 +17,28 @@ def criar_tabelas_adm():
             qtd_usuarios INTEGER NOT NULL DEFAULT 1
         )
     """)
+
+    # Tabela que moldará os planos (crud somente na neectify)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS planos_base(
+            id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+            nome_plano TEXT NOT NULL,
+            descrição TEXT NOT NULL,
+            preço DECIMAL NOT NULL,
+            creditos INTEGER NOT NULL,
+            detalhes_internos TEXT
+        )
+    """)
     
+    # Tabela de cadastro das funcionalidades (crud neectify)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS funcionalidades(
+            id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+            titulo_funcionalidade TEXT NOT NULL,
+            descrição TEXT NOT NULL,
+            creditos_usados TEXT NOT NULL
+        )
+    """)
 
 
     conn.commit()
